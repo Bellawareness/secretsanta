@@ -15,10 +15,9 @@
       overflow-x: hidden;
       background-image:
         url('https://images.unsplash.com/photo-1421284621639-884f4129b61d?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
-        url('https://images.unsplash.com/photo-1421284621639-884f4129b61d?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'), /* palm trees */
         linear-gradient(135deg, #00c3ff 0%, #ffff1c 100%);
-      background-size: cover, cover, cover;
-      background-blend-mode: lighten, multiply;
+      background-size: cover, cover;
+      background-blend-mode: lighten;
       position: relative;
     }
     .snow {
@@ -28,34 +27,64 @@
       z-index: 1;
     }
     .container {
-      background: rgba(255,255,255,0.25);
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 32px;
-      border: 1.5px solid rgba(255,255,255,0.18);
-      max-width: 520px;
-      margin: 110px auto 0 auto;
-      padding: 3.5rem 2.8rem 2.8rem 2.8rem;
+      background: rgba(255,255,255,0.7);
+      box-shadow: 0 8px 32px 0 rgba(255, 0, 0, 0.13), 0 8px 32px 0 rgba(31, 38, 135, 0.17);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 36px;
+      border: 2.5px solid #fff6;
+      max-width: 540px;
+      margin: 70px auto 0 auto;
+      padding: 4.5rem 2.8rem 3.2rem 2.8rem;
       text-align: center;
       position: relative;
       z-index: 2;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-      gap: 2.2rem;
+      box-shadow: 0 8px 32px rgba(255,0,0,0.10), 0 8px 32px rgba(0,0,0,0.13);
+      gap: 2.7rem;
     }
     h1 {
-      color: #ff7f50;
-      margin-bottom: 2.2rem;
+      color: #e63946;
+      margin-bottom: 2.7rem;
+      margin-top: 0.5rem;
       font-family: 'Pacifico', cursive, sans-serif;
-      letter-spacing: 2px;
-      text-shadow: 0 2px 8px #fff8, 0 0px 2px #00c3ff;
-    /* Snow effect removed */
-
-      font-size: 2.5rem;
-    }
-      font-size: 3.5rem;
+      letter-spacing: 2.5px;
+      text-shadow: 0 4px 16px #fff8, 0 0px 2px #e63946, 0 0px 12px #fff8;
+      font-size: 3.2rem;
       line-height: 1.1;
+      background: linear-gradient(90deg, #ffb347 20%, #e63946 80%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
+        /* Festive garland above the fold */
+        .garland {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          margin-bottom: 1.5rem;
+          margin-top: -2.2rem;
+        }
+        /* Holly and sparkles */
+        .holly {
+          position: absolute;
+          top: 18px;
+          left: 18px;
+          width: 48px;
+          z-index: 10;
+        }
+        .sparkle {
+          position: absolute;
+          right: 24px;
+          top: 24px;
+          width: 32px;
+          z-index: 10;
+          opacity: 0.85;
+          animation: sparkle 1.7s infinite alternate;
+        }
+        @keyframes sparkle {
+          0% { opacity: 0.7; transform: scale(1) rotate(0deg); }
+          100% { opacity: 1; transform: scale(1.2) rotate(20deg); }
+        }
     h2 {
       color: #00b894;
       margin-top: 0;
@@ -169,15 +198,28 @@
       .result { font-size: 1.05rem; }
     }
   </style>
-  <canvas class="snow"></canvas>
+  <!-- Festive Garland SVG -->
+  <div class="garland">
+    <svg width="320" height="48" viewBox="0 0 320 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 24 Q 80 0 160 24 T 310 24" stroke="#388e3c" stroke-width="7" fill="none"/>
+      <circle cx="40" cy="18" r="7" fill="#e63946"/>
+      <circle cx="80" cy="10" r="6" fill="#f1fa3c"/>
+      <circle cx="120" cy="20" r="7" fill="#43a047"/>
+      <circle cx="160" cy="12" r="6" fill="#e63946"/>
+      <circle cx="200" cy="18" r="7" fill="#f1fa3c"/>
+      <circle cx="240" cy="10" r="6" fill="#43a047"/>
+      <circle cx="280" cy="20" r="7" fill="#e63946"/>
+    </svg>
+  </div>
+
   <script>
     // Snow animation removed
   </script>
 </head>
 <body>
   <div class="container">
-    <h1>Secret Santa </h1>
-    <p style="margin-bottom: 2.5rem">Ayo! Pick yuh name and see who yuh gon give gift to dis Christmas! 🎄</p>
+    <h1>Secret Santa</h1>
+    <p style="margin-bottom: 2.5rem">Ayo! Pick yuh name and see who yuh gon give gift to dis Christmas! <svg width="22" height="22" viewBox="0 0 22 22" style="vertical-align:middle;"><rect x="6" y="10" width="10" height="7" rx="2" fill="#43a047"/><rect x="8" y="7" width="6" height="5" rx="1.5" fill="#fff176"/><rect x="10.5" y="7" width="1" height="10" fill="#e63946"/><circle cx="11" cy="7" r="2" fill="#e63946"/></svg></p>
     <form id="santa-form">
       <label for="name"><b>Wha yuh name?</b></label>
       <select id="name" required>
@@ -192,7 +234,7 @@
       <h2>You get:</h2>
       <p class="recipient" id="recipient"></p>
       <div id="slang-msg" style="margin-top:1.2rem;font-size:1.1rem;color:#00b894;font-weight:600">
-        Make sure yuh buy a nice gift, yuh hear?  🎁
+        Make sure yuh buy a nice gift, yuh hear?  <svg width="22" height="22" viewBox="0 0 22 22" style="vertical-align:middle;"><rect x="3" y="8" width="16" height="10" rx="2" fill="#fff176"/><rect x="7" y="4" width="8" height="6" rx="2" fill="#e63946"/><rect x="10.5" y="4" width="1" height="14" fill="#43a047"/><circle cx="11" cy="4" r="2" fill="#43a047"/></svg>
       </div>
     </div>
     <div class="error" id="error" style="display:none"></div>
