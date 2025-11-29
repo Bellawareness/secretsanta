@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guyanese Secret Santa Caribbean Special</title>
+  <meta name="description" content="Festive Secret Santa game with Caribbean flair!" />
+  <meta name="author" content="Lovable" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #00c3ff 0%, #ffff1c 100%);
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      background-image:
+        url('https://images.unsplash.com/photo-1421284621639-884f4129b61d?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+        url('https://images.unsplash.com/photo-1421284621639-884f4129b61d?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'), /* palm trees */
+        linear-gradient(135deg, #00c3ff 0%, #ffff1c 100%);
+      background-size: cover, cover, cover;
+      background-blend-mode: lighten, multiply;
+      position: relative;
+    }
+    .snow {
+      pointer-events: none;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 1;
+    }
+    .container {
+      background: rgba(255,255,255,0.25);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 32px;
+      border: 1.5px solid rgba(255,255,255,0.18);
+      max-width: 520px;
+      margin: 110px auto 0 auto;
+      padding: 3.5rem 2.8rem 2.8rem 2.8rem;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      gap: 2.2rem;
+    }
+    h1 {
+      color: #ff7f50;
+      margin-bottom: 2.2rem;
+      font-family: 'Pacifico', cursive, sans-serif;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px #fff8, 0 0px 2px #00c3ff;
+    /* Snow effect removed */
+
+      font-size: 2.5rem;
+    }
+      font-size: 3.5rem;
+      line-height: 1.1;
+    }
+    h2 {
+      color: #00b894;
+      margin-top: 0;
+      font-family: 'Pacifico', cursive, sans-serif;
+      text-shadow: 0 2px 8px #fff8;
+      font-size: 1.7rem;
+      margin-bottom: 2.5rem;
+    }
+    label {
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: block;
+      color: #006266;
+      font-size: 1.1rem;
+    }
+    select, button {
+      font-size: 1.1rem;
+      padding: 0.75rem 1.5rem;
+      margin: 1rem 0 1.5rem 0;
+      border-radius: 12px;
+      border: 1.5px solid #00b894;
+      box-shadow: 0 2px 8px #00c3ff33;
+    }
+    select {
+      background: #e0f7fa;
+      color: #006266;
+      font-weight: 500;
+    }
+    button {
+      background: linear-gradient(90deg, #ff7f50 60%, #00c3ff 100%);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      font-weight: bold;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+    }
+    button:hover:not(:disabled) {
+      background: linear-gradient(90deg, #00b894 60%, #ff7f50 100%);
+      transform: scale(1.07);
+    }
+    button:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+    .result {
+      margin-top: 3.2rem;
+      background: rgba(255,255,255,0.60);
+      border-radius: 22px;
+      padding: 2.2rem 1.2rem;
+      box-shadow: 0 2px 16px #00c3ff33;
+      animation: fadeIn 0.7s;
+      color: #006266;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .recipient {
+      font-size: 2.1rem;
+      color: #ff7f50;
+      font-weight: bold;
+      letter-spacing: 1.5px;
+      margin-top: 1.2rem;
+      margin-bottom: 0.7rem;
+      transition: color 0.4s;
+      animation: popIn 0.7s;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.7); opacity: 0; }
+      70% { transform: scale(1.15); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+    .error {
+      color: #d72660;
+      margin-top: 1.5rem;
+      animation: fadeIn 0.5s;
+      font-size: 1.1rem;
+    }
+    .progress {
+      margin-top: 3.5rem;
+      font-weight: 600;
+      color: #00b894;
+      background: rgba(255,255,255,0.45);
+      border-radius: 16px;
+      padding: 1.3rem 0;
+      box-shadow: 0 2px 12px #00c3ff22;
+      font-size: 1.13rem;
+    }
+    .progress span {
+      color: #ff7f50;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+    footer {
+      margin-top: 3rem;
+      color: #006266;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      font-weight: 500;
+    }
+    @media (max-width: 600px) {
+      .container {
+        max-width: 98vw;
+        padding: 1.7rem 0.5rem 1.5rem 0.5rem;
+      }
+      h1, h2 { font-size: 1.2rem; }
+      .result { font-size: 1.05rem; }
+    }
+  </style>
+  <canvas class="snow"></canvas>
+  <script>
+    // Snow animation removed
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Secret Santa </h1>
+    <p style="margin-bottom: 2.5rem">Ayo! Pick yuh name and see who yuh gon give gift to dis Christmas! 🎄</p>
+    <form id="santa-form">
+      <label for="name"><b>Wha yuh name?</b></label>
+      <select id="name" required>
+        <option value="">-- Pick yuh name --</option>
+      </select>
+      <div id="bella-msg" style="display:none;margin-top:0.5rem;color:#c0392b;font-weight:500">
+        "Gyal, don't forget de ice and ginger eh!"
+      </div>
+      <button type="submit" id="reveal-btn" style="margin-top:1rem">Show Me Who I Get!</button>
+    </form>
+    <div class="result" id="result" style="display:none">
+      <h2>You get:</h2>
+      <p class="recipient" id="recipient"></p>
+      <div id="slang-msg" style="margin-top:1.2rem;font-size:1.1rem;color:#00b894;font-weight:600">
+        Make sure yuh buy a nice gift, yuh hear?  🎁
+      </div>
+    </div>
+    <div class="error" id="error" style="display:none"></div>
+    <div class="progress" id="progress">How We Going<br /><span id="progress-count">0 outta 8 people done pick already.</span></div>
+    <!-- Reset button removed for GitHub/family version -->
+  <div class="container" style="position:relative;z-index:3;background-clip:padding-box;">
+    <footer>
+      <small>Made with ❤️ for the Family</small>
+    </footer>
+  </div>
+  <script>
+    const PARTICIPANTS = ['Belinda', 'Bella', 'Bonita', 'Crystal', 'Christine', 'Ken', 'Michael', 'Travis'];
+    const nameSelect = document.getElementById('name');
+    // Populate select
+    PARTICIPANTS.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p;
+      opt.textContent = p;
+      nameSelect.appendChild(opt);
+    });
+
+    async function updateProgress() {
+      try {
+        const res = await fetch('http://localhost:3001/api/progress');
+        const data = await res.json();
+        document.getElementById('progress-count').textContent = `${data.picked} outta 8 people done pick already.`;
+      } catch (e) {
+        document.getElementById('progress-count').textContent = 'Progress unavailable.';
+      }
+    }
+    updateProgress();
+
+    nameSelect.addEventListener('change', function() {
+      // Only clear error, not result, so recipient stays visible after picking
+      document.getElementById('error').style.display = 'none';
+      // Do NOT hide result or clear recipient here
+      if (this.value === 'Bella') {
+        document.getElementById('bella-msg').style.display = '';
+      } else {
+        document.getElementById('bella-msg').style.display = 'none';
+      }
+    });
+
+    // Restore last pick from localStorage on load
+    let lastPickedName = localStorage.getItem('ss_lastPickedName') || null;
+    let lastRecipient = localStorage.getItem('ss_lastRecipient') || null;
+    if (lastPickedName && lastRecipient) {
+      nameSelect.value = lastPickedName;
+      document.getElementById('recipient').textContent = lastRecipient;
+      document.getElementById('result').style.display = '';
+    }
+
+    document.getElementById('santa-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const name = nameSelect.value;
+      if (!name) return;
+      document.getElementById('error').style.display = 'none';
+      try {
+        if (name === document.getElementById('recipient').textContent) {
+          document.getElementById('error').textContent = 'You cannot pick yourself!';
+          document.getElementById('error').style.display = '';
+          return;
+        }
+        const res = await fetch('http://localhost:3001/api/reveal', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          document.getElementById('recipient').textContent = data.recipient;
+          document.getElementById('result').style.display = '';
+          lastPickedName = name;
+          lastRecipient = data.recipient;
+          // Save to localStorage
+          localStorage.setItem('ss_lastPickedName', lastPickedName);
+          localStorage.setItem('ss_lastRecipient', lastRecipient);
+          updateProgress();
+        } else {
+          document.getElementById('error').textContent = data.error || 'Unknown error';
+          document.getElementById('error').style.display = '';
+          // Do not clear previous recipient/result
+        }
+      } catch (err) {
+        document.getElementById('error').textContent = 'Server error. Is the backend running?';
+        document.getElementById('error').style.display = '';
+        // Do not clear previous recipient/result
+      }
+    });
+  </script>
+</body>
+</html>
+
